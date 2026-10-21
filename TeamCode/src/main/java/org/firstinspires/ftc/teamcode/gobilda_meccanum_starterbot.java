@@ -41,6 +41,7 @@ public class gobilda_meccanum_starterbot extends OpMode {
     private CRServo leftIntakeServo = null;
     private CRServo rightIntakeServo = null;
     private CRServo windmillServo = null;
+    private CRServo windmillServotwo = null;
 
 
     /*
@@ -90,7 +91,7 @@ public class gobilda_meccanum_starterbot extends OpMode {
         windmillServo = hardwareMap.get(CRServo.class, "windmillServo");
         leftIntakeServo = hardwareMap.get(CRServo.class, "left_intake_servo");
         rightIntakeServo = hardwareMap.get(CRServo.class, "right_intake_servo");
-
+        windmillServotwo = hardwareMap.get(CRServo.class, "windmillServotwo");
         /*
          * To drive forward, most robots need the motor on one side to be reversed,
          * because the axles point in opposite directions. Pushing the left stick forward
@@ -134,6 +135,7 @@ public class gobilda_meccanum_starterbot extends OpMode {
         leftIntakeServo.setPower(0);
         rightIntakeServo.setPower(0);
         windmillServo.setPower(0);
+        windmillServotwo.setPower(0);
 
         /*
          * Much like our drivetrain motors, we set the right intake servo to reverse so that both
@@ -141,6 +143,7 @@ public class gobilda_meccanum_starterbot extends OpMode {
          */
         rightIntakeServo.setDirection(DcMotorSimple.Direction.REVERSE);
         windmillServo.setDirection(DcMotorSimple.Direction.REVERSE);
+        windmillServotwo.setDirection(DcMotorSimple.Direction.FORWARD);
 
         /*
          * Tell the driver that initialization is complete.
@@ -271,9 +274,11 @@ public class gobilda_meccanum_starterbot extends OpMode {
          */
         if (gamepad1.right_bumper && launcher.getVelocity() > LAUNCHER_MIN_VELOCITY) {
             windmillServo.setPower(1);
+            windmillServotwo.setPower(1);
             intakePower += 0.5;
         } else {
             windmillServo.setPower(0);
+            windmillServotwo.setPower(0);
         }
         telemetry.addData("launcher ticks", launcher.getCurrentPosition());
         telemetry.addData("launcher velocity" ,launcher.getVelocity());
